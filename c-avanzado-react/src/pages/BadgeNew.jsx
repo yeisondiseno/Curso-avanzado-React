@@ -4,8 +4,38 @@ import header from '../img/badge-header.svg';
 
 import Navbar from '../components/Navbar.jsx';
 import Badge from '../components/Badge.jsx';
+import BadgeForm from '../components/BadgeForm';
 
 class BadgeNew extends React.Component {
+
+    state = {
+      form: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        jobTitle: '',
+        twitter: '',
+      }
+    };
+
+    handleChange = e => {
+      // primer método para que no se sobre escriba
+      
+      // const nextForm = this.state.form;
+      // nextForm[e.target.name] = e.target.value;
+      // this.setState({
+      //   form: nextForm,
+      // });
+
+      // segundo método 
+      this.setState({
+        form: {
+          ... this.state.form,
+          [e.target.name]: e.target.value
+        },
+      });
+    }
+
     render() {
         return (
           <div>
@@ -15,13 +45,19 @@ class BadgeNew extends React.Component {
             </div>
             <div className="container">
               <div className="row">
-                <div className="col">
+                <div className="col-6">
                   <Badge
-                    firstName="Richard"
-                    lastName="Kaufman"
-                    twitter="sparragus"
-                    jobTitle="Fontend Engineer"
+                    firstName={this.state.form.firstName}
+                    lastName={this.state.form.lastName}
+                    twitter={this.state.form.twitter}
+                    jobTitle={this.state.form.jobTitle}
+                    email={this.state.form.email}
                     avatarUrl="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                  />
+                </div>
+                <div className="col-6">
+                  <BadgeForm onChange={this.handleChange} 
+                    formValues={this.state.form}
                   />
                 </div>
               </div>
